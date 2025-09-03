@@ -1,4 +1,3 @@
-docker exec -i open-webui python <<'PY'
 import psutil, os
 from chromadb import PersistentClient
 
