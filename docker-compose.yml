@@ -6,13 +6,13 @@ services:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui-test
     ports:
-      - "3000:8080"      # Test bound to localhost:3000
+      - "3000:8080"
     environment:
       WEBUI_AUTH: "true"
     volumes:
       - open-webui-test:/app/backend/data
     restart: unless-stopped
-    mem_limit: 2g                  # smaller limit so it doesn't starve prod
+    mem_limit: 2g
     memswap_limit: 3g
     cpus: 1.0
     logging:
@@ -23,3 +23,5 @@ services:
 
 volumes:
   open-webui-test:
+    external: true
+    name: open-webui-test
