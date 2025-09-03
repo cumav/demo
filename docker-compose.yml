@@ -1,6 +1,26 @@
 version: "2.4"
 
 services:
+  # Production OpenWebUI
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "80:8080"
+    environment:
+      WEBUI_AUTH: "true"
+    volumes:
+      - open-webui:/app/backend/data
+    restart: unless-stopped
+    mem_limit: 3.5g
+    memswap_limit: 5g
+    cpus: 2.0
+    logging:
+      driver: local
+      options:
+        max-size: "50m"
+        max-file: "3"
+
   # Test OpenWebUI
   open-webui-test:
     image: ghcr.io/open-webui/open-webui:main
@@ -22,6 +42,10 @@ services:
         max-file: "3"
 
 volumes:
+  open-webui:
+    external: true
+    name: open-webui
+
   open-webui-test:
     external: true
     name: open-webui-test
