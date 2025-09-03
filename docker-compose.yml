@@ -1,0 +1,25 @@
+version: "2.4"
+
+services:
+  # Test OpenWebUI
+  open-webui-test:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui-test
+    ports:
+      - "3000:8080"      # Test bound to localhost:3000
+    environment:
+      WEBUI_AUTH: "true"
+    volumes:
+      - open-webui-test:/app/backend/data
+    restart: unless-stopped
+    mem_limit: 2g                  # smaller limit so it doesn't starve prod
+    memswap_limit: 3g
+    cpus: 1.0
+    logging:
+      driver: local
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+volumes:
+  open-webui-test:
